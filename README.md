@@ -2,4 +2,5 @@
 학교 과제 제출 시스템입니다.
 
 📝 목차
-Wiki
+![Wiki](https://github.com/SKHU-LMS/lms_backend/wiki)
+
