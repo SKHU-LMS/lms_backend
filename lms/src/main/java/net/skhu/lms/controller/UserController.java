@@ -44,9 +44,4 @@ public class UserController {
 						.build()
 				);
 	}
-
-	@GetMapping("/test")
-	public String test() {
-		return "no";
-	}
 }
