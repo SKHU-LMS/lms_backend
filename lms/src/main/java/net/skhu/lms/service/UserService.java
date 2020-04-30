@@ -19,16 +19,13 @@ public class UserService {
 	}
 
 	public User login(String userId, String password) {
-		Optional<User> user = userRepository.findByUserId(userId);
+		User user = userRepository.findByUserId(userId).orElseThrow(() ->
+				new RuntimeException("User ID: " + userId + "에 해당하는 사용자가 존재하지 않습니다."));
 
-		if (!user.isPresent()) {
-			throw new RuntimeException("User ID: " + userId + "에 해당하는 사용자가 존재하지 않습니다.");
-		}
-
-		if (!BCrypt.checkpw(password, user.get().getPassword())) {
+		if (!BCrypt.checkpw(password, user.getPassword())) {
 			throw new RuntimeException("비밀번호가 일치하지 않습니다.");
 		}
 
-		return user.get();
+		return user;
 	}
 }

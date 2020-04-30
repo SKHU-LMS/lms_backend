@@ -11,8 +11,8 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new LoginInterceptor());
-				//.addPathPatterns("");
+		registry.addInterceptor(new LoginInterceptor())
+				.addPathPatterns("/test"); // 인터셉터를 적용할 url을 적어주지 않으면 오류 발생
 		WebMvcConfigurer.super.addInterceptors(registry);
 	}
 }
