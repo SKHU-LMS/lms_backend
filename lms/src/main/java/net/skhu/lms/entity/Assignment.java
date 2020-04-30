@@ -32,9 +32,10 @@ public class Assignment {
     private String score;
 
     @OneToMany
-
+    @JoinColumn(name="assignment_id")
     private List<UserAssignment> userAssignments  = new ArrayList<>();
 
     @OneToMany
+    @JoinColumn(name="assignment_id")
     private List<AssignmentFile> assignmentFiles  = new ArrayList<>();
 }

@@ -15,5 +15,6 @@ public class Lecture {
     private int id;
 
     @OneToMany
+    @JoinColumn(name = "lecture_id")
     private List<Assignment> assignments  = new ArrayList<>();
 }
