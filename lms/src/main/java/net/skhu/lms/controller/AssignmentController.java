@@ -1,7 +1,11 @@
 package net.skhu.lms.controller;
 
+import java.util.List;
+
 import net.skhu.lms.entity.Assignment;
+import net.skhu.lms.entity.Lecture;
 import net.skhu.lms.service.AssignmentService;
+import net.skhu.lms.service.LectureService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +18,11 @@ public class AssignmentController {
 
     private AssignmentService assignmentService;
 
-    public AssignmentController(AssignmentService assignmentService) {
+    private LectureService lectureService;
+
+    public AssignmentController(AssignmentService assignmentService, LectureService lectureService) {
         this.assignmentService = assignmentService;
+        this.lectureService = lectureService;
     }
 
     @GetMapping("/assignments/{id}")
@@ -24,5 +31,14 @@ public class AssignmentController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(assignment);
+    }
+
+    @GetMapping("lecture/{id}/assignments")
+    public ResponseEntity<?> getAssignmentList(@PathVariable int id) {
+        Lecture lecture = lectureService.findById(id);
+        List<Assignment> assignmentList = lecture.getAssignments();
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(assignmentList);
     }
 }
