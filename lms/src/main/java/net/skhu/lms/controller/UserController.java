@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("user")
 public class UserController {
 
 	private final UserService userService;
@@ -33,6 +32,22 @@ public class UserController {
 	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
 		User user = userService.login(loginRequest.getUserId(), loginRequest.getPassword());
 		session.setAttribute("user", user);
+
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(UserResponse.builder()
+						.id(user.getId())
+						.userId(user.getUserId())
+						.name(user.getName())
+						.email(user.getEmail())
+						.department(user.getDepartment())
+						.build()
+				);
+	}
+
+	@GetMapping("/user")
+	public ResponseEntity<?> getUserInfo(HttpSession session) {
+		User u = (User) session.getAttribute("user");
+		User user = userService.findByUserId(u.getUserId());
 
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(UserResponse.builder()
