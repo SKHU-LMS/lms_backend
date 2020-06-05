@@ -1,6 +1,8 @@
 package net.skhu.lms.entity;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -12,6 +14,8 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @ToString
+@Getter
+@Setter
 public class Assignment {
 
     @Id
