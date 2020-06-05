@@ -1,4 +1,4 @@
 package net.skhu.lms.repository;
 
-public interface Board {
+public interface BoardRepository {
 }
