@@ -25,4 +25,12 @@ public class LectureController {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(lecture);
 	}
+
+	@GetMapping("/lecture/{id}/users")
+	public ResponseEntity<?> getLectureUsers(@PathVariable int id) {
+		Lecture lecture = lectureService.findById(id);
+
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(lecture.getUsers());
+	}
 }

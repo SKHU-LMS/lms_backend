@@ -2,8 +2,10 @@ package net.skhu.lms.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,4 +37,8 @@ public class Lecture {
 	@OneToMany
 	@JoinColumn(name = "lecture_id")
 	private List<Assignment> assignments = new ArrayList<>();
+
+	@ManyToMany(mappedBy = "userLectures")
+	@JsonIgnore
+	Set<User> users;
 }

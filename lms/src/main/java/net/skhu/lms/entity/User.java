@@ -1,7 +1,9 @@
 package net.skhu.lms.entity;
 
+import java.util.Set;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,4 +38,12 @@ public class User {
 	@JoinColumn(name = "role_id")
 	private Role role;
 
+	@ManyToMany
+	@JsonIgnore
+	@JoinTable(
+			name = "user_lecture",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "lecture_id")
+	)
+	private Set<Lecture> userLectures;
 }

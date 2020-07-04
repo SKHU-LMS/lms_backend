@@ -1,12 +1,16 @@
 package net.skhu.lms.controller;
 
+import java.util.Comparator;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import net.skhu.lms.entity.Lecture;
 import net.skhu.lms.entity.User;
 import net.skhu.lms.model.request.LoginRequest;
+import net.skhu.lms.model.response.UserLecturesResponse;
 import net.skhu.lms.model.response.UserResponse;
 import net.skhu.lms.service.UserService;
 
@@ -59,4 +63,20 @@ public class UserController {
 						.build()
 				);
 	}
+
+	@GetMapping("/{userId}/lectures")
+	public ResponseEntity<?> getUserLectures(@PathVariable String userId) {
+		User user = userService.findByUserId(userId);
+
+		UserLecturesResponse userLecturesResponse = UserLecturesResponse.builder()
+				.userId(user.getUserId())
+				.userLectures(user.getUserLectures().stream()
+						.sorted(Comparator.comparing(Lecture::getId))
+						.collect(Collectors.toList()))
+				.build();
+
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(userLecturesResponse);
+	}
+
 }
