@@ -3,6 +3,7 @@ package net.skhu.lms.entity;
 import java.util.Set;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,6 +39,7 @@ public class User {
 	private Role role;
 
 	@ManyToMany
+	@JsonIgnore
 	@JoinTable(
 			name = "user_lecture",
 			joinColumns = @JoinColumn(name = "user_id"),
