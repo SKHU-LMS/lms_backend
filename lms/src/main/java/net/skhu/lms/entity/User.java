@@ -1,5 +1,6 @@
 package net.skhu.lms.entity;
 
+import java.util.Set;
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -36,4 +37,11 @@ public class User {
 	@JoinColumn(name = "role_id")
 	private Role role;
 
+	@ManyToMany
+	@JoinTable(
+			name = "user_lecture",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "lecture_id")
+	)
+	private Set<Lecture> userLectures;
 }

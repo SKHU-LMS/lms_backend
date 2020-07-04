@@ -59,4 +59,13 @@ public class UserController {
 						.build()
 				);
 	}
+
+	@GetMapping("/{userId}/lectures")
+	public ResponseEntity<?> getUserLectures(@PathVariable String userId) {
+		User user = userService.findByUserId(userId);
+
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(user.getUserLectures());
+	}
+
 }
