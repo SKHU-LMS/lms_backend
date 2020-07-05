@@ -38,6 +38,10 @@ public class Lecture {
 	@JoinColumn(name = "lecture_id")
 	private List<Assignment> assignments = new ArrayList<>();
 
+	@OneToMany
+	@JoinColumn(name = "lecture_id")
+	private List<Board> boards = new ArrayList<>();
+
 	@ManyToMany(mappedBy = "userLectures")
 	@JsonIgnore
 	Set<User> users;
